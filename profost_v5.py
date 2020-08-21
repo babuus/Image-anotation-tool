@@ -184,6 +184,7 @@ class Ui_Annotator3_1(object):
 
         self.retranslateUi(Annotator3_1)
         QtCore.QMetaObject.connectSlotsByName(Annotator3_1)
+        
     #dark mode
     def Dark_mode_clicked(self):
         if self.togglenumber %2 == 1:
