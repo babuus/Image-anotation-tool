@@ -4,7 +4,6 @@ from PyQt5.Qt import Qt
 import Directory
 import os, shutil
 
-
 class Ui_Annotator3_1(object):
     def setupUi(self, Annotator3_1):
         Annotator3_1.setObjectName("Annotator3_1")
@@ -46,12 +45,11 @@ class Ui_Annotator3_1(object):
         self.gridLayout_5 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.listWidget_3 = QtWidgets.QListWidget(self.scrollAreaWidgetContents)
+        self.listWidget_3.setStyleSheet("font: 9pt \"MS Shell Dlg 2\";")
         self.listWidget_3.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
         self.listWidget_3.setIconSize(QtCore.QSize(310, 220))
         self.listWidget_3.setViewMode(QtWidgets.QListView.IconMode)
         self.listWidget_3.setObjectName("listWidget_3")
-        self.image_list()
-    
         self.gridLayout_5.addWidget(self.listWidget_3, 1, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout_4.addWidget(self.scrollArea, 0, 0, 1, 1)
@@ -62,7 +60,7 @@ class Ui_Annotator3_1(object):
         self.list_right_frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.list_right_frame.setObjectName("list_right_frame")
         self.layoutWidget_2 = QtWidgets.QWidget(self.list_right_frame)
-        self.layoutWidget_2.setGeometry(QtCore.QRect(0, 0, 304, 891))
+        self.layoutWidget_2.setGeometry(QtCore.QRect(0, 10, 304, 881))
         self.layoutWidget_2.setObjectName("layoutWidget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget_2)
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -74,36 +72,35 @@ class Ui_Annotator3_1(object):
         self.lineEdit.setMinimumSize(QtCore.QSize(200, 27))
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_2.addWidget(self.lineEdit)
-        self.lineEdit.textChanged.connect(self.update_display_list)
-
         self.Enter_btn = QtWidgets.QPushButton(self.layoutWidget_2)
+        self.Enter_btn.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         self.Enter_btn.setObjectName("Enter_btn")
         self.horizontalLayout_2.addWidget(self.Enter_btn)
-        self.Enter_btn.clicked.connect(self.Enter_btn_clicked)
-
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         self.folders = QtWidgets.QListWidget(self.layoutWidget_2)
+        self.folders.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.folders.setObjectName("folders")
         self.verticalLayout_2.addWidget(self.folders)
         self.listWidget = QtWidgets.QListWidget(self.layoutWidget_2)
+        self.listWidget.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.listWidget.setObjectName("listWidget")
         self.verticalLayout_2.addWidget(self.listWidget)
         self.horizontalLayout = QtWidgets.QHBoxLayout()
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.label = QtWidgets.QLabel(self.layoutWidget_2)
+        self.label.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.pushButton = QtWidgets.QPushButton(self.layoutWidget_2)
-        self.pushButton.setMaximumSize(QtCore.QSize(80, 40))
+        self.pushButton.setMaximumSize(QtCore.QSize(100, 40))
         self.pushButton.setLayoutDirection(QtCore.Qt.LeftToRight)
-        icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("./images_icons/refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.pushButton.setIcon(icon1)
+        self.pushButton.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("./images_icons/refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.pushButton.setIcon(icon)
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout.addWidget(self.pushButton)
         self.verticalLayout_2.addLayout(self.horizontalLayout)
-        self.refresh()
-
         self.btn_left_frame = QtWidgets.QFrame(self.main_frame)
         self.btn_left_frame.setGeometry(QtCore.QRect(-10, -10, 251, 891))
         self.btn_left_frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
@@ -116,25 +113,24 @@ class Ui_Annotator3_1(object):
         self.verticalLayout.setObjectName("verticalLayout")
         self.Source_Dir_btn = QtWidgets.QPushButton(self.btn_left_frame)
         self.Source_Dir_btn.setMinimumSize(QtCore.QSize(209, 79))
-        icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("./images_icons/pngguru.com (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.Source_Dir_btn.setIcon(icon2)
+        self.Source_Dir_btn.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";\n"
+"font: 12pt \"MS Shell Dlg 2\";")
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap("./images_icons/pngguru.com (1).png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Source_Dir_btn.setIcon(icon1)
         self.Source_Dir_btn.setIconSize(QtCore.QSize(70, 70))
         self.Source_Dir_btn.setObjectName("Source_Dir_btn")
         self.verticalLayout.addWidget(self.Source_Dir_btn)
-        self.Source_Dir_btn.clicked.connect(self.on_click_source_dir_btn)
-        
-        #Distination_dir_btn
         self.Distination_Dir_btn = QtWidgets.QPushButton(self.btn_left_frame)
         self.Distination_Dir_btn.setMinimumSize(QtCore.QSize(209, 79))
-        icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("./images_icons/pngguru.com.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.Distination_Dir_btn.setIcon(icon3)
+        self.Distination_Dir_btn.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";\n"
+"font: 12pt \"MS Shell Dlg 2\";")
+        icon2 = QtGui.QIcon()
+        icon2.addPixmap(QtGui.QPixmap("./images_icons/pngguru.com.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.Distination_Dir_btn.setIcon(icon2)
         self.Distination_Dir_btn.setIconSize(QtCore.QSize(70, 70))
         self.Distination_Dir_btn.setObjectName("Distination_Dir_btn")
         self.verticalLayout.addWidget(self.Distination_Dir_btn)
-        self.Distination_Dir_btn.clicked.connect(self.on_click_destination_dir_btn)
-
         self.verticalLayout_5.addLayout(self.verticalLayout)
         self.label_2 = QtWidgets.QLabel(self.btn_left_frame)
         self.label_2.setLayoutDirection(QtCore.Qt.LeftToRight)
@@ -142,15 +138,15 @@ class Ui_Annotator3_1(object):
         self.label_2.setObjectName("label_2")
         self.verticalLayout_5.addWidget(self.label_2)
         self.Selected_list = QtWidgets.QListWidget(self.btn_left_frame)
+        self.Selected_list.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.Selected_list.setObjectName("Selected_list")
         self.verticalLayout_5.addWidget(self.Selected_list)
         self.pushButton_2 = QtWidgets.QPushButton(self.btn_left_frame)
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 100))
+        self.pushButton_2.setMaximumSize(QtCore.QSize(227, 100))
+        self.pushButton_2.setStyleSheet("font: 18pt \"MS Shell Dlg 2\";")
         self.pushButton_2.setObjectName("pushButton_2")
         self.verticalLayout_5.addWidget(self.pushButton_2)
-        self.pushButton_2.clicked.connect(self.on_click_pushbutton_2)
-
-
         self.gridLayout.addWidget(self.main_frame, 1, 0, 1, 1)
         Annotator3_1.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(Annotator3_1)
@@ -164,18 +160,44 @@ class Ui_Annotator3_1(object):
         Annotator3_1.setStatusBar(self.statusBar)
         self.actionHelp = QtWidgets.QAction(Annotator3_1)
         self.actionHelp.setObjectName("actionHelp")
+        self.actionToggle = QtWidgets.QAction(Annotator3_1)
+        self.actionToggle.setObjectName("actionToggle")
+        self.actionToggle.triggered.connect(self.Dark_mode_clicked)
+        self.actionToggle.setShortcut('Ctrl+B')
         self.menufile.addAction(self.actionHelp)
         self.menufile.addSeparator()
+        self.menufile.addAction(self.actionToggle)
+        self.togglenumber= 1
         self.menubar.addAction(self.menufile.menuAction())
         self.listWidget.clicked.connect(self.listwidget_clicked)
         self.folders.clicked.connect(self.folders_list_clicked)
         self.Selected_list.clicked.connect(self.selected_list_clicked)
+        self.pushButton_2.clicked.connect(self.on_click_pushbutton_2)
+        self.Distination_Dir_btn.clicked.connect(self.on_click_destination_dir_btn)
+        self.Source_Dir_btn.clicked.connect(self.on_click_source_dir_btn)
+        self.Enter_btn.clicked.connect(self.Enter_btn_clicked)
+        self.lineEdit.textChanged.connect(self.update_display_list)
+
+        self.image_list()
+        self.refresh()
+
+
         self.retranslateUi(Annotator3_1)
         QtCore.QMetaObject.connectSlotsByName(Annotator3_1)
-    
+    #dark mode
+    def Dark_mode_clicked(self):
+        if self.togglenumber %2 == 1:
+            self.main_frame.setStyleSheet("color: white;\n"
+        "background-color: rgb(84, 84, 84);")
+            self.togglenumber = self.togglenumber +1
+        else:
+            self.main_frame.setStyleSheet("")
+            self.togglenumber = self.togglenumber +1
+        return
+
+    #delete the folders selected in left side list
     def selected_list_clicked(self):
         item = self.Selected_list.currentItem()
-        # print(self.selected_list(str(item.text())))
         print()
         st = str(item.text())
         if st in self.Selected_list_list :
@@ -184,10 +206,9 @@ class Ui_Annotator3_1(object):
         print(a.text()," removed")
         self.Selected_list_list.remove(a.text())
         print(self.Selected_list_list)
-
-        
         return
 
+    #on click enter left side
     def on_click_pushbutton_2(self):
         ans = self.showDialog("The files will be copied")
         if ans == True:
@@ -206,9 +227,9 @@ class Ui_Annotator3_1(object):
             self.Selected_list.clear()
             self.Selected_list_list.clear()
             self.listWidget_3.clearSelection()
-        # self.showDialog()
         return
     
+    #displaying image list
     def image_list(self):
         self.listWidget_3.clear()
         location_list = self.get_image_locations()
@@ -221,9 +242,8 @@ class Ui_Annotator3_1(object):
             self.listWidget_3.addItem(item)
         return
     
+    #clicking enter button right side
     def Enter_btn_clicked(self):
-        # print(self.lineEdit.text())
-        
         destination_folders = self.destin_folders_get()
         if str(self.lineEdit.text()) in destination_folders:   
             a =0
@@ -240,6 +260,7 @@ class Ui_Annotator3_1(object):
                 self.destin_folders_get
         return
 
+    #on click source button to change source folder
     def on_click_source_dir_btn(self):
         source_dir = QFileDialog.getExistingDirectory()
         print(source_dir)
@@ -248,7 +269,8 @@ class Ui_Annotator3_1(object):
         text_file.close()
         #refresh the page image
         os.execl(sys.executable, sys.executable, *sys.argv)
-        self.refresh()    
+        self.refresh()
+
     #left side list
     def selected_list_folders(self,items):
         
@@ -260,6 +282,7 @@ class Ui_Annotator3_1(object):
             self.Selected_list_list.append(items)
             print(self.Selected_list_list)
             return
+
     #destination btn
     def on_click_destination_dir_btn(self):
         destination_folder = QFileDialog.getExistingDirectory()
@@ -269,6 +292,7 @@ class Ui_Annotator3_1(object):
         # print(destination_folder)
         self.folder_lists_destin()
         return destination_folder
+
     #getting the imagelocations from source folder
     def get_image_locations(self):
         text_file = open("./txt_files/source_dir.txt", "r")
@@ -276,6 +300,7 @@ class Ui_Annotator3_1(object):
         text_file.close()
         location_list = Directory.images_in_the_directorys(source_dir)
         return location_list
+
     #refresh btn down right corner
     def refresh(self):
         i = 0
@@ -290,6 +315,7 @@ class Ui_Annotator3_1(object):
         self.folder_lists_destin()
         self.label.setText(str(len(self.location_list))+" files in the source")
         return self.location_list
+
     #message box
     def showDialog(self, msg):
         msgBox = QMessageBox()
@@ -297,42 +323,40 @@ class Ui_Annotator3_1(object):
         msgBox.setText(msg)
         msgBox.setWindowTitle("QMessageBox Example")
         msgBox.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        # msgBox.buttonClicked.connect(self.msgButtonClick)
         returnValue = msgBox.exec()
         if returnValue == QMessageBox.Ok:
             print('OK clicked')
             return True
         else:
             return False
+
     #clicking the list which displays image location and name
     def listwidget_clicked(self):
         item = self.listWidget.currentItem()
-        # print(str(item.text()))
+
     #folders list on click right side below search box
     def folders_list_clicked(self):
         item = self.folders.currentItem()
         self.selected_list_folders(str(item.text()))
-        #print(str(item.text()))
+
     #get the destination folders 
     def destin_folders_get(self):
         text_file = open("./txt_files/destination_dir.txt", "r")
-
         destination_dir = text_file.read()
         text_file.close()
         return Directory.destination_dir_folder(destination_dir)
+
     #listing the destination folders in the right side top
     def folder_lists_destin(self):
         i = 0
         self.folders.clear()
-        self.destination_dir_folders =self.destin_folders_get()
-        # print(self.destination_dir_folders)
-    
+        self.destination_dir_folders =self.destin_folders_get()    
         for i in range(len(self.destination_dir_folders)):
             item = QtWidgets.QListWidgetItem()
             self.folders.addItem(self.destination_dir_folders[i])
-           
         return
-    
+
+    #displaying the updated list when we search
     def update_display_list(self, text):
         self.destination_dir_folders =self.destin_folders_get()
         res = [i for i in self.destination_dir_folders if text in i]
@@ -340,25 +364,25 @@ class Ui_Annotator3_1(object):
         for i in range(len(res)):
             item = QtWidgets.QListWidgetItem()
             self.folders.addItem(res[i])
-            
         return
 
-
+    #for printing names
     def retranslateUi(self, Annotator3_1):
         _translate = QtCore.QCoreApplication.translate
-        Annotator3_1.setWindowTitle(_translate("Annotator3_1", "mannual tool"))
-        location_list = self.get_image_locations()
+        Annotator3_1.setWindowTitle(_translate("Annotator3_1", "copy image to folders"))
         self.Enter_btn.setText(_translate("Annotator3_1", "Enter"))
-        # self.label.setText(_translate("Annotator3_1", "Number of files"))
+        self.label.setText(_translate("Annotator3_1", "Number of files"))
         self.pushButton.setText(_translate("Annotator3_1", "Refresh"))
         self.Source_Dir_btn.setText(_translate("Annotator3_1", "Source Dir"))
         self.Distination_Dir_btn.setText(_translate("Annotator3_1", "Distination Dir"))
         self.label_2.setText(_translate("Annotator3_1", "click to unselect the folder"))
         self.pushButton_2.setText(_translate("Annotator3_1", "ENTER"))
-        self.menufile.setTitle(_translate("Annotator3_1", "file"))
+        self.menufile.setTitle(_translate("Annotator3_1", "File"))
         self.actionHelp.setText(_translate("Annotator3_1", "Help"))
+        self.actionToggle.setText(_translate("Annotator3_1", "Toggle"))
+        #for printing the names of images
         k = 0
-    
+        location_list = self.get_image_locations()
         for i in location_list:
             __sortingEnabled = self.listWidget_3.isSortingEnabled()
             self.listWidget_3.setSortingEnabled(False)
