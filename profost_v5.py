@@ -326,9 +326,10 @@ class Ui_Annotator3_1(object):
     def on_click_source_dir_btn(self):
         source_dir = QFileDialog.getExistingDirectory()
         print(source_dir)
-        text_file = open("./txt_files/source_dir.txt", "w")
-        n = text_file.write(source_dir)
-        text_file.close()
+        if source_dir != "":
+            text_file = open("./txt_files/source_dir.txt", "w")
+            n = text_file.write(source_dir)
+            text_file.close()
         #refresh the page image
         os.execl(sys.executable, sys.executable, *sys.argv)
         self.refresh()
@@ -348,11 +349,12 @@ class Ui_Annotator3_1(object):
     #destination btn
     def on_click_destination_dir_btn(self):
         destination_folder = QFileDialog.getExistingDirectory()
-        text_file = open("./txt_files/destination_dir.txt", "w")
-        text_file.write(destination_folder)
-        text_file.close()
-        self.folder_lists_destin()
-        return destination_folder
+        if destination_folder != "":
+            text_file = open("./txt_files/destination_dir.txt", "w")
+            text_file.write(destination_folder)
+            text_file.close()
+            self.folder_lists_destin()
+            return destination_folder
 
     #getting the imagelocations from source folder
     def get_image_locations(self):
