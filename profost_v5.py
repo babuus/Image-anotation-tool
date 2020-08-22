@@ -1,8 +1,10 @@
+
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QFileDialog,QMessageBox, QApplication, QWidget
 from PyQt5.Qt import Qt
 import Directory
 import os, shutil
+import json
 
 class Ui_Annotator3_1(object):
     def setupUi(self, Annotator3_1):
@@ -50,7 +52,7 @@ class Ui_Annotator3_1(object):
         self.listWidget_3.setIconSize(QtCore.QSize(310, 220))
         self.listWidget_3.setViewMode(QtWidgets.QListView.IconMode)
         self.listWidget_3.setObjectName("listWidget_3")
-        self.gridLayout_5.addWidget(self.listWidget_3, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.listWidget_3, 0, 0, 1, 1)
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         self.gridLayout_4.addWidget(self.scrollArea, 0, 0, 1, 1)
         self.list_right_frame = QtWidgets.QFrame(self.main_frame)
@@ -63,13 +65,14 @@ class Ui_Annotator3_1(object):
         self.layoutWidget_2.setGeometry(QtCore.QRect(0, 10, 304, 881))
         self.layoutWidget_2.setObjectName("layoutWidget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.layoutWidget_2)
+
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_2.setSpacing(2)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.lineEdit = QtWidgets.QLineEdit(self.layoutWidget_2)
-        self.lineEdit.setMinimumSize(QtCore.QSize(200, 27))
+        self.lineEdit.setMinimumSize(QtCore.QSize(200, 30))
         self.lineEdit.setObjectName("lineEdit")
         self.horizontalLayout_2.addWidget(self.lineEdit)
         self.Enter_btn = QtWidgets.QPushButton(self.layoutWidget_2)
@@ -92,9 +95,9 @@ class Ui_Annotator3_1(object):
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.pushButton = QtWidgets.QPushButton(self.layoutWidget_2)
-        self.pushButton.setMaximumSize(QtCore.QSize(100, 40))
+        self.pushButton.setMaximumSize(QtCore.QSize(80, 40))
         self.pushButton.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.pushButton.setStyleSheet("font: 11pt \"MS Shell Dlg 2\";")
+        self.pushButton.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("./images_icons/refresh.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.pushButton.setIcon(icon)
@@ -141,6 +144,12 @@ class Ui_Annotator3_1(object):
         self.Selected_list.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";")
         self.Selected_list.setObjectName("Selected_list")
         self.verticalLayout_5.addWidget(self.Selected_list)
+        self.label_3 = QtWidgets.QLabel(self.btn_left_frame)
+        self.label_3.setObjectName("label_3")
+        self.verticalLayout_5.addWidget(self.label_3, 0, QtCore.Qt.AlignHCenter)
+        self.listWidget1 = QtWidgets.QListWidget(self.btn_left_frame)
+        self.listWidget1.setObjectName("listWidget1")
+        self.verticalLayout_5.addWidget(self.listWidget1)
         self.pushButton_2 = QtWidgets.QPushButton(self.btn_left_frame)
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 100))
         self.pushButton_2.setMaximumSize(QtCore.QSize(227, 100))
@@ -167,8 +176,8 @@ class Ui_Annotator3_1(object):
         self.menufile.addAction(self.actionHelp)
         self.menufile.addSeparator()
         self.menufile.addAction(self.actionToggle)
-        self.togglenumber= 1
         self.menubar.addAction(self.menufile.menuAction())
+        self.togglenumber= 1
         self.listWidget.clicked.connect(self.listwidget_clicked)
         self.folders.clicked.connect(self.folders_list_clicked)
         self.Selected_list.clicked.connect(self.selected_list_clicked)
@@ -176,15 +185,38 @@ class Ui_Annotator3_1(object):
         self.Distination_Dir_btn.clicked.connect(self.on_click_destination_dir_btn)
         self.Source_Dir_btn.clicked.connect(self.on_click_source_dir_btn)
         self.Enter_btn.clicked.connect(self.Enter_btn_clicked)
+        self.listWidget_3.itemClicked.connect(self.on_click_image)
         self.lineEdit.textChanged.connect(self.update_display_list)
-
         self.image_list()
         self.refresh()
 
 
         self.retranslateUi(Annotator3_1)
         QtCore.QMetaObject.connectSlotsByName(Annotator3_1)
-        
+    def on_click_image(self):
+        # items = self.listWidget_3.selectedItems()
+        self.listWidget1.clear()
+        selected_image = self.listWidget_3.currentItem().text()
+        print(selected_image, "selected")
+        text_file = open("./txt_files/destination_dir.txt", "r")
+        self.destination_dir = text_file.read()
+        text_file.close()
+        if (os.path.exists(str(self.destination_dir+"/"+'image_history.json'))):
+            with open(self.destination_dir+"/"+'image_history.json') as json_file:
+                data = json.load(json_file)
+                temp = data['images']
+                for imagess in range(len(temp)):
+                    if temp[imagess]['name'] == selected_image:
+                        folders_in_json = temp[imagess]['folders']
+                        print("folders",folders_in_json)       
+                        for i in range(len(folders_in_json)):
+                            item = QtWidgets.QListWidgetItem()
+                            self.listWidget1.addItem(folders_in_json[i])
+        else:
+            data = {"images":[]}
+            self.write_json(data)                  
+        return
+
     #dark mode
     def Dark_mode_clicked(self):
         if self.togglenumber %2 == 1:
@@ -199,12 +231,11 @@ class Ui_Annotator3_1(object):
     #delete the folders selected in left side list
     def selected_list_clicked(self):
         item = self.Selected_list.currentItem()
-        print()
         st = str(item.text())
         if st in self.Selected_list_list :
             pass
         a = self.Selected_list.takeItem(self.Selected_list.currentRow())
-        print(a.text()," removed")
+        print(a.text(),"removed")
         self.Selected_list_list.remove(a.text())
         print(self.Selected_list_list)
         return
@@ -217,19 +248,50 @@ class Ui_Annotator3_1(object):
             num_ITEMS=[item.text() for item in self.listWidget_3.selectedItems()]
             print(num_ITEMS)
             text_file = open("./txt_files/source_dir.txt", "r")
-            source_dir = text_file.read()
+            self.source_dir = text_file.read()
             text_file.close()
             text_file = open("./txt_files/destination_dir.txt", "r")
-            destination_dir = text_file.read()
+            self.destination_dir = text_file.read()
             text_file.close()
             folders_list = self.Selected_list_list
             location_list = self.get_image_locations()
-            Directory.copy_files(num_ITEMS,source_dir, destination_dir, folders_list, location_list)
+            Directory.copy_files(num_ITEMS,self.source_dir, self.destination_dir, folders_list, location_list)
+            if (os.path.exists(str(self.destination_dir+"/"+'image_history.json'))):
+                with open(self.destination_dir+"/"+'image_history.json') as json_file:
+                    data = json.load(json_file)
+                    temp = data['images']
+                    for i in num_ITEMS:
+                        k = 0
+                        for j in range(len(temp)):
+                            if temp[j]['name'] == i:
+                                k = 1
+                                for c in range(len(folders_list)):
+                                    f = 0
+                                    for s in range(len(temp[j]['folders'])):
+                                        if temp[j]['folders'][s] == folders_list[c]:
+                                            f = 1
+                                    if f == 0:
+                                        temp[j]['folders'].append(folders_list[c])
+                        if k == 0:
+                            store_json = {"name": i, "folders":folders_list}
+                            print(store_json)
+                            temp.append(store_json)
+            else:
+                data = {"images":[]}
+                self.write_json(data)
+
+            self.write_json(data)
             self.Selected_list.clear()
             self.Selected_list_list.clear()
             self.listWidget_3.clearSelection()
         return
-    
+
+    #write json file
+    def write_json(self,data, filename=('image_history.json')): 
+        with open(((self.destination_dir)+"/"+filename),'w') as f: 
+            json.dump(data, f, indent=4)
+        print("copy history is available in the folder ",str(Directory.folder_open())+"/"+filename)
+        
     #displaying image list
     def image_list(self):
         self.listWidget_3.clear()
@@ -248,7 +310,6 @@ class Ui_Annotator3_1(object):
         destination_folders = self.destin_folders_get()
         if str(self.lineEdit.text()) in destination_folders:   
             a =0
-        
         else:
             try:
                 text_file = open("./txt_files/destination_dir.txt", "r")
@@ -290,7 +351,6 @@ class Ui_Annotator3_1(object):
         text_file = open("./txt_files/destination_dir.txt", "w")
         text_file.write(destination_folder)
         text_file.close()
-        # print(destination_folder)
         self.folder_lists_destin()
         return destination_folder
 
@@ -307,11 +367,9 @@ class Ui_Annotator3_1(object):
         i = 0
         self.listWidget.clear()
         self.location_list = self.get_image_locations()
-        
         for i in range(len(self.location_list)):
             item = QtWidgets.QListWidgetItem()
             self.listWidget.addItem(os.path.realpath(self.location_list[i]))
-            
         self.image_list()
         self.folder_lists_destin()
         self.label.setText(str(len(self.location_list))+" files in the source")
@@ -368,15 +426,17 @@ class Ui_Annotator3_1(object):
         return
 
     #for printing names
+
     def retranslateUi(self, Annotator3_1):
         _translate = QtCore.QCoreApplication.translate
-        Annotator3_1.setWindowTitle(_translate("Annotator3_1", "copy image to folders"))
+        Annotator3_1.setWindowTitle(_translate("Annotator3_1", "Tool"))
         self.Enter_btn.setText(_translate("Annotator3_1", "Enter"))
         self.label.setText(_translate("Annotator3_1", "Number of files"))
         self.pushButton.setText(_translate("Annotator3_1", "Refresh"))
         self.Source_Dir_btn.setText(_translate("Annotator3_1", "Source Dir"))
         self.Distination_Dir_btn.setText(_translate("Annotator3_1", "Distination Dir"))
         self.label_2.setText(_translate("Annotator3_1", "click to unselect the folder"))
+        self.label_3.setText(_translate("Annotator3_1", "Image already copied to"))
         self.pushButton_2.setText(_translate("Annotator3_1", "ENTER"))
         self.menufile.setTitle(_translate("Annotator3_1", "File"))
         self.actionHelp.setText(_translate("Annotator3_1", "Help"))
@@ -391,6 +451,7 @@ class Ui_Annotator3_1(object):
             self.listWidget_3.setSortingEnabled(__sortingEnabled)
             item.setText(_translate("Annotator3_1", str(os.path.basename(i))))
             k = k +1
+
 
 
 if __name__ == "__main__":
