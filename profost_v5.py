@@ -16,6 +16,7 @@ class Ui_Annotator3_1(object):
         sizePolicy.setHeightForWidth(Annotator3_1.sizePolicy().hasHeightForWidth())
         Annotator3_1.setSizePolicy(sizePolicy)
         Annotator3_1.setToolTipDuration(-1)
+        self.aaa = Annotator3_1
         self.Selected_list_list = []
         self.centralwidget = QtWidgets.QWidget(Annotator3_1)
         self.centralwidget.setObjectName("centralwidget")
@@ -95,7 +96,7 @@ class Ui_Annotator3_1(object):
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
         self.pushButton = QtWidgets.QPushButton(self.layoutWidget_2)
-        self.pushButton.setMaximumSize(QtCore.QSize(80, 40))
+        self.pushButton.setMaximumSize(QtCore.QSize(100, 40))
         self.pushButton.setLayoutDirection(QtCore.Qt.LeftToRight)
         self.pushButton.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";")
         icon = QtGui.QIcon()
@@ -190,9 +191,9 @@ class Ui_Annotator3_1(object):
         self.image_list()
         self.refresh()
 
-
         self.retranslateUi(Annotator3_1)
         QtCore.QMetaObject.connectSlotsByName(Annotator3_1)
+        
     def on_click_image(self):
         # items = self.listWidget_3.selectedItems()
         self.listWidget1.clear()
@@ -222,9 +223,12 @@ class Ui_Annotator3_1(object):
         if self.togglenumber %2 == 1:
             self.main_frame.setStyleSheet("color: white;\n"
         "background-color: rgb(84, 84, 84);")
+            self.aaa.setStyleSheet("color: white;\n"
+        "background-color: rgb(84, 84, 84);")
             self.togglenumber = self.togglenumber +1
         else:
             self.main_frame.setStyleSheet("")
+            self.aaa.setStyleSheet("")
             self.togglenumber = self.togglenumber +1
         return
 
