@@ -7,15 +7,17 @@ search through folders.
 Installation in windows:
 1. install python
 2. clone the repo
-3. install pyqt5
-4. run profost_v5.py file
+3. install PyQt5
+4. edit the source_dir.txt and destination_dir.txt to your pc location
+5. run profost_v5.py file
 
 
 Installation in linux:
 1. install python3
 2. clone the repo
-3. use pip to install pyqt5
-4. run the file as python3 profosr_v5.py
+3. use pip to install PyQt5 or Qt5
+4. edit the source_dir.txt and destination_dir.txt to your pc location
+5. run the file as python3 profosr_v5.py
 
 Do's:
 1. you can choose any image folders as source
