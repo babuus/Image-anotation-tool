@@ -8,7 +8,7 @@ Installation in windows:
 1. install python
 2. clone the repo
 3. install PyQt5
-4. edit the source_dir.txt and destination_dir.txt to your pc location
+4. edit the source_dir.txt and destination_dir.txt in txt_file folder to your pc location
 5. run profost_v5.py file
 
 
@@ -16,7 +16,7 @@ Installation in linux:
 1. install python3
 2. clone the repo
 3. use pip to install PyQt5 or Qt5
-4. edit the source_dir.txt and destination_dir.txt to your pc location
+4. edit the source_dir.txt and destination_dir.txt in txt_file folder to your pc location
 5. run the file as python3 profosr_v5.py
 
 Do's:
