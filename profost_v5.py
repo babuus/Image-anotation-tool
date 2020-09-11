@@ -188,6 +188,7 @@ class Ui_Annotator3_1(object):
         self.Enter_btn.clicked.connect(self.Enter_btn_clicked)
         self.listWidget_3.itemClicked.connect(self.on_click_image)
         self.lineEdit.textChanged.connect(self.update_display_list)
+        self.pushButton.clicked.connect(self.refresh)
         self.image_list()
         self.refresh()
 
@@ -370,6 +371,7 @@ class Ui_Annotator3_1(object):
 
     #refresh btn down right corner
     def refresh(self):
+        print("refresh")
         i = 0
         self.listWidget.clear()
         self.location_list = self.get_image_locations()
@@ -379,7 +381,7 @@ class Ui_Annotator3_1(object):
         self.image_list()
         self.folder_lists_destin()
         self.label.setText(str(len(self.location_list))+" files in the source")
-        return self.location_list
+        return
 
     #message box
     def showDialog(self, msg):
@@ -432,7 +434,6 @@ class Ui_Annotator3_1(object):
         return
 
     #for printing names
-
     def retranslateUi(self, Annotator3_1):
         _translate = QtCore.QCoreApplication.translate
         Annotator3_1.setWindowTitle(_translate("Annotator3_1", "Tool"))
