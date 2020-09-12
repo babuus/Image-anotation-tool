@@ -192,6 +192,7 @@ class Ui_Annotator3_1(object):
         self.image_list()
         self.refresh()
 
+
         self.retranslateUi(Annotator3_1)
         QtCore.QMetaObject.connectSlotsByName(Annotator3_1)
         
