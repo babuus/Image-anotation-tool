@@ -17,7 +17,7 @@ Installation in linux:
 2. clone the repo
 3. use pip to install PyQt5 or Qt5
 4. edit the source_dir.txt and destination_dir.txt in txt_file folder to your pc location
-5. run the file as python3 profosr_v5.py
+5. run the file as python3 profost_v5.py
 
 Do's:
 1. you can choose any image folders as source
