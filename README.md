@@ -4,6 +4,8 @@ you can view any number of images and organize it,
 create folders and move the image to it,
 search through folders.
 
+![image](https://user-images.githubusercontent.com/38039777/178746947-8c459414-2ab7-410b-8b77-07dbda01c8bb.png)
+
 Installation in windows:
 1. install python
 2. clone the repo
